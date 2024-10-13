@@ -8,9 +8,14 @@ public class Customer {
 	
 //	constructor
 	
-	public Customer(int customerID, String name, String email, String password) {
-		super();
-		this.customerID = customerID;
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+	
+	public Customer(int customerId,String name, String email, String password) {
+		this.customerID = customerId;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -51,7 +56,6 @@ public class Customer {
 	}
 	
 //	toString
-
 	@Override
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", name=" + name + ", email=" + email + ", password=" + password

@@ -4,19 +4,26 @@ public class Product {
 	private int productID;
 	private String name;
 	private double price;
-	private String descrption;
+	private String description;
 	private int stockQuantity;
 	
-//	constructor
-	
-	public Product(int productID, String name, double price, String descrption, int stockQuantity) {
-		super();
-		this.productID = productID;
-		this.name = name;
-		this.price = price;
-		this.descrption = descrption;
-		this.stockQuantity = stockQuantity;
-	}
+    // Constructor without productId for creating a new product
+    public Product(String name, double price, String description, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+    }
+
+    // Constructor with productId for retrieving from the database
+    public Product(int productId, String name, double price, String description, int stockQuantity) {
+        this.productID = productId;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+    }
+
 	
 //	getters and setters
 
@@ -44,12 +51,12 @@ public class Product {
 		this.price = price;
 	}
 
-	public String getDescrption() {
-		return descrption;
+	public String getDescription() {
+		return description;
 	}
 
 	public void setDescrption(String descrption) {
-		this.descrption = descrption;
+		this.description = descrption;
 	}
 
 	public int getStockQuantity() {
@@ -64,7 +71,7 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return "Product [productID=" + productID + ", name=" + name + ", price=" + price + ", descrption=" + descrption
+		return "Product [productID=" + productID + ", name=" + name + ", price=" + price + ", descrption=" + description
 				+ ", stockQuantity=" + stockQuantity + "]";
 	}
 	
