@@ -1,58 +1,64 @@
 package entity;
 
 public class Customer {
-    private int customerId;
-    private String name;
-    private String email;
-    private String password;
+	private int customerID;
+	private String name;
+	private String email;
+	private String password;
+	
+//	constructor
+	
+	public Customer(String name, String email, String password) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+	
+	public Customer(int customerId,String name, String email, String password) {
+		this.customerID = customerId;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+	}
+	
+//	getter and setter
 
-    // Default constructor
-    public Customer() {}
+	public int getCustomerID() {
+		return customerID;
+	}
 
-    // Parameterized constructor
-    public Customer(int customerId, String name, String email, String password) {
-        this.customerId = customerId;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
+	public void setCustomerID(int customerID) {
+		this.customerID = customerID;
+	}
 
-    // Getters and Setters
-    public int getCustomerId() {
-        return customerId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+//	toString
 	@Override
 	public String toString() {
-		return "Customer [customerId=" + customerId + ", name=" + name + ", email=" + email + ", password=" + password
+		return "Customer [customerID=" + customerID + ", name=" + name + ", email=" + email + ", password=" + password
 				+ "]";
 	}
 }

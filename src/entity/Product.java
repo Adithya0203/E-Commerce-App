@@ -1,68 +1,78 @@
 package entity;
 
 public class Product {
-    private int productId;
-    private String name;
-    private double price;
-    private String description;
-    private int stockQuantity;
+	private int productID;
+	private String name;
+	private double price;
+	private String description;
+	private int stockQuantity;
+	
+    // Constructor without productId for creating a new product
+    public Product(String name, double price, String description, int stockQuantity) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+    }
 
-    // Default constructor
-    public Product() {}
-
-    // Parameterized constructor
+    // Constructor with productId for retrieving from the database
     public Product(int productId, String name, double price, String description, int stockQuantity) {
-        this.productId = productId;
+        this.productID = productId;
         this.name = name;
         this.price = price;
         this.description = description;
         this.stockQuantity = stockQuantity;
     }
 
-    // Getters and Setters
-    public int getProductId() {
-        return productId;
-    }
+	
+//	getters and setters
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+	public int getProductID() {
+		return productID;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public int getStockQuantity() {
-        return stockQuantity;
-    }
+	public void setDescrption(String descrption) {
+		this.description = descrption;
+	}
 
-    public void setStockQuantity(int stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
 
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
+
+//	toString
+	
 	@Override
 	public String toString() {
-		return "Product [productId=" + productId + ", name=" + name + ", price=" + price + ", description="
-				+ description + ", stockQuantity=" + stockQuantity + "]";
+		return "Product [productID=" + productID + ", name=" + name + ", price=" + price + ", descrption=" + description
+				+ ", stockQuantity=" + stockQuantity + "]";
 	}
+	
 }

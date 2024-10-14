@@ -5,19 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnUtil {
-    private static Connection connection;
+    
+    // Database connection parameters
+    private static final String hostname = "localhost";
+    private static final String dbname = "e-com";
+    private static final String username = "root";
+    private static final String password = "Swetha@2003";
+    private static final String port = "3306";
 
-    public static Connection getConnection(String propertyFileName) {
-        String connectionString = DBPropertyUtil.getPropertyString(propertyFileName);
-
+    // Static method to get a new connection
+    public static Connection getConnection() {
         try {
-            if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(connectionString);
-            }
+            // Create the connection string
+            String connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" + dbname;
+            // Establish and return a new connection
+            return DriverManager.getConnection(connectionString, username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Handle any SQL exceptions
+            return null;
         }
-
-        return connection;
     }
 }

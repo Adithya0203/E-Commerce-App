@@ -2,38 +2,32 @@ package util;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 public class DBPropertyUtil {
-    public static String getPropertyString(String propertyFileName) {
+    public static String getPropertyString() {
         Properties properties = new Properties();
-        StringBuilder connectionString = new StringBuilder();
+        String connectionString = null;
 
-        try (InputStream inputStream = new FileInputStream("src/main/resources/" + propertyFileName)) {
-            properties.load(inputStream);
+        try (FileInputStream input = new FileInputStream("db.properties")) {
+            // Load the properties file
+            properties.load(input);
+
+            // Fetch connection details from the property file
             String hostname = properties.getProperty("hostname");
             String dbname = properties.getProperty("dbname");
             String username = properties.getProperty("username");
             String password = properties.getProperty("password");
             String port = properties.getProperty("port");
 
-            // Constructing the connection string
-            connectionString.append("jdbc:mysql://")
-                    .append(hostname)
-                    .append(":")
-                    .append(port)
-                    .append("/")
-                    .append(dbname)
-                    .append("?user=")
-                    .append(username)
-                    .append("&password=")
-                    .append(password);
+            // Build the connection string
+            connectionString = "jdbc:mysql://" + hostname + ":" + port + "/" + dbname + 
+                               "?user=" + username + "&password=" + password;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return connectionString.toString();
+        return connectionString;
     }
 }
