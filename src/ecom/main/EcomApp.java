@@ -38,8 +38,9 @@ public class EcomApp {
 
             switch (choice) {
                 case 1: // Register Customer
+                	scanner.nextLine();
                     System.out.println("Enter customer name:");
-                    String customerName = scanner.next();
+                    String customerName = scanner.nextLine();
                     
                     String capitalName = customerName.substring(0,1).toUpperCase() 
                     		+ customerName.substring(1,customerName.length());
@@ -52,6 +53,7 @@ public class EcomApp {
                     boolean customerCreated = orderService.createCustomer(newCustomer);
                     if (customerCreated) {
                         System.out.println("Customer registered successfully.");
+                        System.out.println("Customer details: " + "Name: " + capitalName + ", " + "Email: " + customerEmail);
                     } else {
                         System.out.println("Failed to register customer.");
                     }
@@ -74,14 +76,14 @@ public class EcomApp {
                         int productStockQuantity = scanner.nextInt();
                         scanner.nextLine(); // Consume newline
 
-                        // Create Product object (assuming you have a Product class with a constructor)
+                        // Create Product object
                         Product product = new Product(productName, productPrice, productDescription, productStockQuantity);
 
                         // Call createProduct method in service
                         boolean isSuccess = orderService.createProduct(product);
                         if (isSuccess) {
                             System.out.println("Product created successfully!");
-                            System.out.println("Product details: " + product.getName() + ", " + product.getPrice() + ", " + product.getDescription() + ", " + product.getStockQuantity());
+                            System.out.println("Product details: " + "Name: " + product.getName() + ", " + "Price: " + product.getPrice() + ", " + "Description: " + product.getDescription() + ", " + "Quantity: " + product.getStockQuantity());
                         } else {
                             System.out.println("Failed to create the product.");
                         }
@@ -198,6 +200,7 @@ public class EcomApp {
                         boolean orderPlaced = orderService.placeOrder(placeOrderCustomer,shippingAddress);
                         if (orderPlaced) {
                             System.out.println("Order placed successfully.");
+                            System.out.println("Order Details: " + "Customer ID: " + placeOrderCustomer.getCustomerID() + ", " + "Name: " + placeOrderCustomer.getName() + ", " + "Email: " + placeOrderCustomer.getEmail());
                         } else {
                             System.out.println("Failed to place order.");
                         }
@@ -228,10 +231,6 @@ public class EcomApp {
                     int viewOrdersCustomerId = scanner.nextInt();
                     try {
                         List<Order> orders = orderService.getOrdersByCustomer(viewOrdersCustomerId);
-//                        System.out.println("Orders:");
-//                        for (Order order : orders) {
-//                            System.out.println("Order ID: " + order.getOrderId() + ", Shipping Address: " + order.getShippingAddress());
-//                        }
                     } catch (OrderNotFoundException e) {
                         System.out.println(e.getMessage());
                     }
@@ -268,7 +267,7 @@ public class EcomApp {
                     } else {
                         System.out.println("All Orders:");
                         for (Order order : orders) {
-                            System.out.println(order);  // This will now call the toString() method
+                            System.out.println(order);  // This will call the toString() method
                         }
                     }
 

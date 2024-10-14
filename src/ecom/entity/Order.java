@@ -103,8 +103,8 @@ public void setCartItems(List<Map<Product, Integer>> cartItems) {
 
 @Override
 public String toString() {
-	return "Order [OrderId=" + OrderId + ", CustomerId=" + CustomerId + ", orderDate=" + orderDate + ", totalPrice="
-			+ totalPrice + ", shippingAddress=" + shippingAddress + "]";
+	return "OrderId=" + OrderId + ", CustomerId=" + CustomerId + ", orderDate=" + orderDate + ", totalPrice="
+			+ totalPrice + ", shippingAddress=" + shippingAddress;
 }
 
 }
