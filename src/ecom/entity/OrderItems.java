@@ -7,8 +7,6 @@ public class OrderItems {
 	private int quantity;
 	
 //	constructor
-	public OrderItems() {
-	}
 	
 	public OrderItems(int orderItemID, int orderID, int productID, int quantity) {
 		super();

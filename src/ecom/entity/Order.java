@@ -12,9 +12,10 @@ public class Order {
    private String shippingAddress;
    private Customer customer;
    private List<Map<Product, Integer>> cartItems;
-
-
-
+   
+   //constructor
+   
+   // for retrieval
 public Order(int orderId, int customerId, Date orderDate, double totalPrice, String shippingAddress) {
 	super();
 	OrderId = orderId;
@@ -24,6 +25,7 @@ public Order(int orderId, int customerId, Date orderDate, double totalPrice, Str
 	this.shippingAddress = shippingAddress;
 }
 
+//for insertion
 public Order(int customerId, Date orderDate, double totalPrice, String shippingAddress) {
 	super();
 	CustomerId = customerId;

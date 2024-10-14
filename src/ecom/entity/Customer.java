@@ -8,12 +8,14 @@ public class Customer {
 	
 //	constructor
 	
+	// for insertion
 	public Customer(String name, String email, String password) {
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
 	
+	//for retrieval
 	public Customer(int customerId,String name, String email, String password) {
 		this.customerID = customerId;
 		this.name = name;

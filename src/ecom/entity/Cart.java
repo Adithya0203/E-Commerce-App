@@ -12,6 +12,7 @@ public class Cart {
 	
 //	constructor
 	
+	// for retrieval
 	public Cart(int cartID, int customerID, int productID, int quantity) {
 		super();
 		this.cartID = cartID;
@@ -21,6 +22,7 @@ public class Cart {
 		items = new HashMap<>();
 	}
 	
+	//for insertion
 	public Cart(int customerID, int productID, int quantity) {
 		super();
 		this.customerID = customerID;
@@ -46,16 +48,6 @@ public class Cart {
         }
 
         System.out.println("Product added to the cart: " + product.getName() + ", Quantity: " + quantity);
-	}
-
-//	to remove item from cart
-	public void removeItem(Product product) {
-	
-	}
-
-//	to retrieve list of items in the cart
-	public void getItems() {
-	
 	}
 	
 //	getters and setters

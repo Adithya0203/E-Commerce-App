@@ -29,35 +29,26 @@ public class EcomApp {
             System.out.println("8. Place Order");
             System.out.println("9. Delete Order");
             System.out.println("10. View Customer Orders");
-            System.out.println("12. View All Products");
+            System.out.println("11. View All Products");
             System.out.println("12. View All Customers");
             System.out.println("13. View All Orders");
             System.out.println("14. Exit");
             System.out.print("Choose an operation: ");
             int choice = scanner.nextInt();
-            
-//            System.out.println("1. Register Customer");
-//            System.out.println("4. Delete Customer");
-//          System.out.println("5. Add to Cart");
-//          System.out.println("6. Remove from Cart");
-//          System.out.println("7. View Cart");
-//          System.out.println("8. Place Order");
-
-//            System.out.println("2. Create Product");
-//            System.out.println("3. Delete Product");
-//            System.out.println("10. View All Products");
-//            System.out.println("11. View All Customers");
-//            System.out.println("12. View All Orders");
 
             switch (choice) {
                 case 1: // Register Customer
                     System.out.println("Enter customer name:");
                     String customerName = scanner.next();
+                    
+                    String capitalName = customerName.substring(0,1).toUpperCase() 
+                    		+ customerName.substring(1,customerName.length());
+                    
                     System.out.println("Enter customer email:");
                     String customerEmail = scanner.next();
                     System.out.println("Enter customer password:");
                     String customerPassword = scanner.next();
-                    Customer newCustomer = new Customer(customerName, customerEmail, customerPassword);
+                    Customer newCustomer = new Customer(capitalName, customerEmail, customerPassword);
                     boolean customerCreated = orderService.createCustomer(newCustomer);
                     if (customerCreated) {
                         System.out.println("Customer registered successfully.");
@@ -68,9 +59,9 @@ public class EcomApp {
 
                 case 2: // Create Product
                     try {
+                    	scanner.nextLine();
                         System.out.println("Enter product name:");
-                        String productName = scanner.next();
-                        scanner.nextLine();
+                        String productName = scanner.nextLine();
 
                         System.out.println("Enter product price (with decimals):");
                         double productPrice = scanner.nextDouble();
@@ -237,10 +228,10 @@ public class EcomApp {
                     int viewOrdersCustomerId = scanner.nextInt();
                     try {
                         List<Order> orders = orderService.getOrdersByCustomer(viewOrdersCustomerId);
-                        System.out.println("Orders:");
-                        for (Order order : orders) {
-                            System.out.println("Order ID: " + order.getOrderId() + ", Shipping Address: " + order.getShippingAddress());
-                        }
+//                        System.out.println("Orders:");
+//                        for (Order order : orders) {
+//                            System.out.println("Order ID: " + order.getOrderId() + ", Shipping Address: " + order.getShippingAddress());
+//                        }
                     } catch (OrderNotFoundException e) {
                         System.out.println(e.getMessage());
                     }

@@ -198,11 +198,13 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
        String insertOrderSQL = "INSERT INTO orders (customerId, orderDate, totalPrice, shippingAddress) VALUES (?, NOW(), ?, ?)";
        String insertOrderItemSQL = "INSERT INTO orderItems (orderId, productId, quantity) VALUES (?, ?, ?)";
        String getCartItemsSQL = "SELECT productId, quantity FROM cart WHERE customerId = ?";
-
+       String updateStockSQL = "UPDATE products SET stockQuantity = stockQuantity - ? WHERE productId = ?";
+       
        Connection connection = null;
        PreparedStatement orderStatement = null;
        PreparedStatement orderItemStatement = null;
        PreparedStatement cartStatement = null;
+       PreparedStatement updateStockStatement = null;
        ResultSet generatedKeys = null;
        ResultSet cartItemsResult = null;
 
@@ -259,6 +261,7 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
 
            // Insert each item into order_items table
            orderItemStatement = connection.prepareStatement(insertOrderItemSQL);
+           updateStockStatement = connection.prepareStatement(updateStockSQL);
            for (Map<Product, Integer> entry : cartItems) {
                Product product = entry.keySet().iterator().next();
                int quantity = entry.get(product);
@@ -267,10 +270,16 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
                orderItemStatement.setInt(2, product.getProductID());
                orderItemStatement.setInt(3, quantity);
                orderItemStatement.addBatch();
+               
+               // Update stock quantity in products table
+               updateStockStatement.setInt(1, quantity);
+               updateStockStatement.setInt(2, product.getProductID());
+               updateStockStatement.addBatch();
            }
 
            // Execute batch update for order items
            orderItemStatement.executeBatch();
+           updateStockStatement.executeBatch();
            
            // Commit transaction
            connection.commit();
@@ -294,6 +303,7 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
            if (generatedKeys != null) try { generatedKeys.close(); } catch (SQLException ignore) {}
            if (orderStatement != null) try { orderStatement.close(); } catch (SQLException ignore) {}
            if (orderItemStatement != null) try { orderItemStatement.close(); } catch (SQLException ignore) {}
+           if (updateStockStatement != null) try { updateStockStatement.close(); } catch (SQLException ignore) {}
            if (cartStatement != null) try { cartStatement.close(); } catch (SQLException ignore) {}
            if (connection != null) try { connection.close(); } catch (SQLException ignore) {}
        }
@@ -369,7 +379,7 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
 
 	        // Debug: Check if the query executed correctly
 	        if (!rs.isBeforeFirst()) {
-	            System.out.println("No orders found in result set for customer ID: " + customerId);
+	            System.out.println("No orders found for customer ID: " + customerId);
 	        }
 
 	        while (rs.next()) {
@@ -389,10 +399,6 @@ public class OrderProcessorRepositoryImpl implements OrderProcessorRepository {
 	    } catch (SQLException e) {
 	        e.printStackTrace(); // Print the stack trace for debugging
 	        throw new OrderNotFoundException("Error fetching orders for customer ID: " + customerId);
-	    }
-
-	    if (orders.isEmpty()) {
-	        throw new OrderNotFoundException("No orders found for customer ID: " + customerId);
 	    }
 
 	    return orders;
